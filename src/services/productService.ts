@@ -60,6 +60,11 @@ class ProductService {
         const response = await api.get<ProductsResponseI>(`/products?${params}`);
         return response.data;
     }
+
+    async createProduct(productData: Omit<ProductI, 'id' | 'created_at' | 'updated_at'>): Promise<ProductsResponseI> {
+        const response = await api.post<ProductsResponseI>('/products', productData);
+        return response.data;
+    }
 }
 
 export const productService = ProductService.getInstance();
