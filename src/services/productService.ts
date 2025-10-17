@@ -17,6 +17,8 @@ export interface ProductMetaI {
     per_page: number;
     current_page: number;
     last_page: number;
+    from: number;
+    to: number;
 }
 
 export interface ProductsResponseI {
@@ -39,7 +41,7 @@ export interface CategoriesResponse {
 class ProductService {
     private static instance: ProductService;
 
-    private constructor() {}
+    private constructor() { }
 
     static getInstance(): ProductService {
         if (!ProductService.instance) {
@@ -48,10 +50,11 @@ class ProductService {
         return ProductService.instance;
     }
 
-    async getProducts(page: number = 1): Promise<ProductsResponseI> {
+    async getProducts(page: number = 1, searchTerm: string = "", per_page: number = 10): Promise<ProductsResponseI> {
         const params = new URLSearchParams({
             page: page.toString(),
-            per_page: '10',
+            per_page: per_page.toString(),
+            query: searchTerm
         }).toString();
 
         const response = await api.get<ProductsResponseI>(`/products?${params}`);
