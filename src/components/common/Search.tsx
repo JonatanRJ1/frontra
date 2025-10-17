@@ -27,7 +27,6 @@ const SearchProducts: React.FC<{
 
     return (
         <div>
-            <h1>Products</h1>
             <Input
                 type="text"
                 value={inputValue}
